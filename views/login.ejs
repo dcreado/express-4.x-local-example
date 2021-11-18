@@ -45,6 +45,7 @@
           <form action="/login/password" method="post">
             <input type="text" name="username" placeholder="Username">
             <input type="password" name="password" placeholder="Password">
+            <input type="hidden" name="goto" value="<%=  query.goto %>" >
             <button type="submit" class="contrast">Sign in</button>
           </form>
         </div>

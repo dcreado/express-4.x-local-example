@@ -5,14 +5,26 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/login', function(req, res, next) {
-  res.render('login');
+  res.render('login', { query: req.query});
 });
 
-router.post('/login/password', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureMessage: true
-}));
+router.post('/login/password', function(req, res, next) {
+  var redirect_back = req.body["goto"] ;
+
+  if(redirect_back == undefined || redirect_back == "" || !(redirect_back.startsWith("/"))) {
+    redirect_back = "/";
+  }
+
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { return res.redirect('/login?goto='+ encodeURIComponent(redirect_back)); }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.redirect(redirect_back);
+    });
+  })(req, res, next);
+});
+
 
 router.get('/logout', function(req, res, next) {
   req.logout();
