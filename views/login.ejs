@@ -28,7 +28,7 @@
   <body>
 
     <main class="container">
-      
+
       <article class="grid">
         <div>
           <% if (hasMessages) { %>
@@ -38,14 +38,13 @@
             <% }); %>
             </ul>
           <% } %>
-          
+
           <hgroup>
             <h1>Sign in</h1>
           </hgroup>
           <form action="/login/password" method="post">
             <input type="text" name="username" placeholder="Username">
             <input type="password" name="password" placeholder="Password">
-            <input type="hidden" name="goto" value="<%=  query.goto %>" >
             <button type="submit" class="contrast">Sign in</button>
           </form>
         </div>
